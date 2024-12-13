@@ -52,8 +52,27 @@ class FileReaderAndWriter {
 
 public class InputOutputSanBox {
     public static void main(String[] args) {
+        String filePathWindows = "C:\\Users\\Ruslan\\Desktop\\output.txt";
+        String filePathLinux = "/home/ruslan/Desktop/output.txt";
+        String filePath;
+
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            System.out.println("Operating System: Windows");
+            filePath = filePathWindows;
+        } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+            System.out.println("Operating System: Linux/Unix");
+            filePath = filePathLinux;
+        } else if (os.contains("mac")) {
+            System.out.println("Operating System: macOS");
+            filePath = "input your desired filepath here";
+        } else {
+            System.out.println("Operating System: Unknown");
+            filePath = "output.txt";
+        }
+
         System.out.println("--===||| This is Input Output test |||===--");
-        String filePath = "C:\\Users\\Ruslan\\Desktop\\output.txt";
+
         String[] phoneNumbers = new String[]{"987-123-4567", "123 456 7890", "(123) 456-7890"};
         FileReaderAndWriter rw = new FileReaderAndWriter();
         StringBuffer sb = new StringBuffer();
