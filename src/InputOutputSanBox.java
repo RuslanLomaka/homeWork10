@@ -50,7 +50,7 @@ class FileReaderAndWriter {
     }
 }
 
-public class InputOutputSanbox {
+public class InputOutputSanBox {
     public static void main(String[] args) {
         System.out.println("--===||| This is Input Output test |||===--");
         String filePath = "C:\\Users\\Ruslan\\Desktop\\output.txt";
