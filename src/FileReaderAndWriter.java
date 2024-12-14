@@ -28,7 +28,9 @@ public class FileReaderAndWriter {
         return sb;
     }
 
-    public StringBuilder readAllTextFromFileFormatted(String filePath) {
+
+
+    public StringBuilder readFromFileFormattedPhoneNumbers(String filePath) {
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -52,6 +54,7 @@ public class FileReaderAndWriter {
 
 class InputOutputSanBox {
     public static void main(String[] args) {
+        //     DON'T     FORGET     TO     CUSTOMIZE    YOUR     DESIRED     FILEPATH
         String filePathWindows = "C:\\Users\\Ruslan\\Desktop\\output.txt";
         String filePathMac = "~/Desktop/output.txt";
         String filePathLinux = "/home/ruslan/Desktop/output.txt";
@@ -91,7 +94,7 @@ class InputOutputSanBox {
         System.out.println(sb);
         sb.delete(0, sb.length());
 
-        sb = rw.readAllTextFromFileFormatted(filePath);
+        sb = rw.readFromFileFormattedPhoneNumbers(filePath);
         System.out.println("--===||| Filtered phone numbers list according to format requirements: |||===--");
         System.out.println(sb);
         sb.delete(0, sb.length());
