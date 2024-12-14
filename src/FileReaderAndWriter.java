@@ -1,6 +1,8 @@
 import java.io.*;
 
-class FileReaderAndWriter {
+public class FileReaderAndWriter {
+    private static final String PHONE_REGEX = "^\\(\\d{3}\\) \\d{3}-\\d{4}$|^\\d{3}-\\d{3}-\\d{4}$";
+    //                                               only  (xxx) xxx-xxxx OR xxx-xxx-xxxx    are acceptable formats
     public void writeToFile(String text, String filePath) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
@@ -11,8 +13,8 @@ class FileReaderAndWriter {
         }
     }
 
-    public StringBuffer readAllTextFromFile(String filePath) {
-        StringBuffer sb = new StringBuffer();
+    public StringBuilder readAllTextFromFile(String filePath) {
+        StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -26,8 +28,8 @@ class FileReaderAndWriter {
         return sb;
     }
 
-    public StringBuffer readAllTextFromFileFormatted(String filePath) {
-        StringBuffer sb = new StringBuffer();
+    public StringBuilder readAllTextFromFileFormatted(String filePath) {
+        StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -44,15 +46,14 @@ class FileReaderAndWriter {
     }
 
     private boolean checkFormat(String sample) {
-        //     only  (xxx) xxx-xxxx or xxx-xxx-xxxx    are acceptable formats
-        String regex = "^\\(\\d{3}\\) \\d{3}-\\d{4}$|^\\d{3}-\\d{3}-\\d{4}$";
-        return sample.matches(regex);
+        return sample.matches(PHONE_REGEX);
     }
 }
 
-public class InputOutputSanBox {
+class InputOutputSanBox {
     public static void main(String[] args) {
         String filePathWindows = "C:\\Users\\Ruslan\\Desktop\\output.txt";
+        String filePathMac = "~/Desktop/output.txt";
         String filePathLinux = "/home/ruslan/Desktop/output.txt";
         String filePath;
 
@@ -65,7 +66,7 @@ public class InputOutputSanBox {
             filePath = filePathLinux;
         } else if (os.contains("mac")) {
             System.out.println("Operating System: macOS");
-            filePath = "input your desired filepath here";
+            filePath = filePathMac;
         } else {
             System.out.println("Operating System: Unknown");
             filePath = "output.txt";
@@ -75,7 +76,7 @@ public class InputOutputSanBox {
 
         String[] phoneNumbers = new String[]{"987-123-4567", "123 456 7890", "(123) 456-7890"};
         FileReaderAndWriter rw = new FileReaderAndWriter();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (String num : phoneNumbers) {
             sb.append(num).append("\n");
