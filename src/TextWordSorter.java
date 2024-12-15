@@ -33,9 +33,6 @@ public class TextWordSorter {
 
 // Sort the list (optional, if needed by frequency)
         words.sort(new WordCapsule());
-
-
-        words.sort(new WordCapsule());
         return words;
     }
 }
@@ -66,6 +63,8 @@ class WordCapsule implements Comparator<WordCapsule> {
 
 class TextWordSorterSandBox {
     public static void main(String[] args) {
+        // Start the timer
+        long startTime = System.currentTimeMillis();
 
         File kolobok =new File("kolobok.txt");
         File ivasykTelesyk =new File("IvasykTelesyk.txt");
@@ -82,5 +81,11 @@ class TextWordSorterSandBox {
         for (WordCapsule wc : wordsFreq) {
             System.out.println(wc);
         }
+        // Stop the timer and calculate elapsed time
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        // Print the elapsed time
+        System.out.println("--===||| Execution Time: " + elapsedTime + " ms |||===--");
     }
 }
