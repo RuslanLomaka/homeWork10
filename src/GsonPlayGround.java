@@ -1,7 +1,8 @@
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -47,30 +48,35 @@ public class GsonPlayGround {
                 "\n" + "alice 21" +
                 "\n" + "ruslan 33" +
                 "\n" + "ryan 30";
+        System.out.println("--===||| Content of 'users.txt': |||===--");
+        System.out.println(usersToKeep);
+        File usersTxt = new File("users.txt");
+        File usersJson = new File("users.json");
 
         // Step 2: Initialize Gson and FileReaderAndWriter utilities
         System.out.println("--===||| Initializing Gson and FileReaderAndWriter |||===--");
-        Gson gson = new Gson();
-        StringBuilder sb = new StringBuilder();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
         FileReaderAndWriter rw = new FileReaderAndWriter(); // A class from the first task
 
         // Step 3: Write the text representation of users to a file
         System.out.println("--===||| Writing user data to 'users.txt' |||===--");
-        rw.writeToFile(usersToKeep, "users.txt");
+        rw.writeToFile(usersToKeep, usersTxt.getPath());
 
         // Step 4: Read users from the file and parse them into a list
         System.out.println("--===||| Reading users from 'users.txt' |||===--");
-        List<User> usersFromText = User.readUsersFromFile("users.txt");
+        List<User> usersFromText = User.readUsersFromFile(usersTxt.getPath());
         System.out.println("--===||| Parsed user data from 'users.txt': |||===--");
         System.out.println(usersFromText);
 
         // Step 5: Serialize the list of users to JSON and write to a file
         System.out.println("--===||| Serializing user data to JSON and writing to 'users.json' |||===--");
-        rw.writeToFile(gson.toJson(usersFromText), "users.json");
+        rw.writeToFile(gson.toJson(usersFromText), usersJson.getPath());
 
         // Step 6: Read the JSON data back from the file
         System.out.println("--===||| Reading JSON data from 'users.json' |||===--");
-        sb = rw.readAllTextFromFile("users.json");
+        StringBuilder sb;
+        sb = rw.readAllTextFromFile(usersJson.getPath());
         System.out.println("--===||| Content of 'users.json': |||===--");
         System.out.println(sb);
 

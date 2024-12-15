@@ -55,24 +55,24 @@ public class FileReaderAndWriter {
 class InputOutputSanBox {
     public static void main(String[] args) {
         //     DON'T     FORGET     TO     CUSTOMIZE    YOUR     DESIRED     FILEPATH
-        String filePathWindows = "C:\\Users\\Ruslan\\Desktop\\output.txt";
-        String filePathMac = "~/Desktop/output.txt";
-        String filePathLinux = "/home/ruslan/Desktop/output.txt";
-        String filePath;
+        File filePath;
+        File windowsFilepath = new File("C:\\Users\\Ruslan\\Desktop\\output.txt");
+        File macFilepath = new File("~/Desktop/output.txt");
+        File linuxFilepath = new File("/home/ruslan/Desktop/output.txt");
 
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win")) {
             System.out.println("Operating System: Windows");
-            filePath = filePathWindows;
+            filePath = windowsFilepath;
         } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
             System.out.println("Operating System: Linux/Unix");
-            filePath = filePathLinux;
+            filePath = linuxFilepath;
         } else if (os.contains("mac")) {
             System.out.println("Operating System: macOS");
-            filePath = filePathMac;
+            filePath = macFilepath;
         } else {
             System.out.println("Operating System: Unknown");
-            filePath = "output.txt";
+            filePath = new File("output.txt");
         }
 
         System.out.println("--===||| This is Input Output test |||===--");
@@ -85,16 +85,16 @@ class InputOutputSanBox {
             sb.append(num).append("\n");
         }
 
-        rw.writeToFile(sb.toString(), filePath);
+        rw.writeToFile(sb.toString(), filePath.getPath());
         System.out.println("--===||| Wrote phone numbers to file: " + filePath + "|||===--");
         sb.delete(0, sb.length());
 
-        sb = rw.readAllTextFromFile(filePath);
+        sb = rw.readAllTextFromFile(filePath.getPath());
         System.out.println("--===||| Unfiltered phone numbers list: |||===--");
         System.out.println(sb);
         sb.delete(0, sb.length());
 
-        sb = rw.readFromFileFormattedPhoneNumbers(filePath);
+        sb = rw.readFromFileFormattedPhoneNumbers(filePath.getPath());
         System.out.println("--===||| Filtered phone numbers list according to format requirements: |||===--");
         System.out.println(sb);
         sb.delete(0, sb.length());
