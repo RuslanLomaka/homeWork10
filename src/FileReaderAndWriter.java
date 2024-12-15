@@ -2,47 +2,41 @@ import java.io.*;
 
 public class FileReaderAndWriter {
     private static final String PHONE_REGEX = "^\\(\\d{3}\\) \\d{3}-\\d{4}$|^\\d{3}-\\d{3}-\\d{4}$";
+
     //                                               only  (xxx) xxx-xxxx OR xxx-xxx-xxxx    are acceptable formats
     public void writeToFile(String text, String filePath) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(text);
-            writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     public StringBuilder readAllTextFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
-            reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return sb;
     }
 
 
-
     public StringBuilder readFromFileFormattedPhoneNumbers(String filePath) {
         StringBuilder sb = new StringBuilder();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (this.checkFormat(line)) {
                     sb.append(line).append("\n");
                 }
             }
-            reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return sb;
     }

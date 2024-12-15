@@ -7,7 +7,6 @@ import java.util.Map;
 public class TextWordSorter {
 
     ArrayList<WordCapsule> getWordsFreq(String filepath) {
-
         FileReaderAndWriter rw = new FileReaderAndWriter();
         StringBuilder sb = new StringBuilder().append(rw.readAllTextFromFile(filepath));
 
@@ -24,20 +23,16 @@ public class TextWordSorter {
         for (String w : wordsStringArray) {
            wordsFreqMap.put(w, wordsFreqMap.getOrDefault(w, 0) + 1);
         }
-        //System.out.println(wordsFreqMap);//Uncomment if you want to se the unsorted hashmap
+        //System.out.println(wordsFreqMap);//Uncomment if you want to see the unsorted hashmap
 
         // Convert map entries into WordCapsule objects and add to the list
         for (Map.Entry<String, Integer> entry : wordsFreqMap.entrySet()) {
             words.add(new WordCapsule(entry.getKey(), entry.getValue()));
         }
-
-// Sort the list (optional, if needed by frequency)
         words.sort(new WordCapsule());
         return words;
     }
 }
-
-
 class WordCapsule implements Comparator<WordCapsule> {
     String word;
     int freq;
@@ -70,9 +65,8 @@ class TextWordSorterSandBox {
         File ivasykTelesyk =new File("IvasykTelesyk.txt");
         File textToSort;
 
-        //textToSort = kolobok;
-        textToSort = ivasykTelesyk;
-
+        textToSort = kolobok;
+        // textToSort = ivasykTelesyk;
 
         TextWordSorter mySorter = new TextWordSorter();
 
@@ -84,7 +78,6 @@ class TextWordSorterSandBox {
         // Stop the timer and calculate elapsed time
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
-
         // Print the elapsed time
         System.out.println("--===||| Execution Time: " + elapsedTime + " ms |||===--");
     }
